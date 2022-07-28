@@ -850,6 +850,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#kube-system" class="md-nav__link">
+    kube-system
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#disclosures" class="md-nav__link">
     Disclosures
   </a>
@@ -1175,6 +1182,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#kube-system" class="md-nav__link">
+    kube-system
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#disclosures" class="md-nav__link">
     Disclosures
   </a>
@@ -1281,6 +1295,109 @@
 <td>matchbox</td>
 <td><a href="https://github.com/poseidon/terraform-provider-matchbox">github</a></td>
 <td><a href="https://registry.terraform.io/providers/poseidon/matchbox/latest">poseidon/matchbox</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="kube-system">kube-system<a class="headerlink" href="#kube-system" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>user</th>
+<th>hostNet</th>
+<th>privileged</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kube-apiserver</td>
+<td>nobody</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>kube-controller-manager</td>
+<td>nobody</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>kube-scheduler</td>
+<td>nobody</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>coredns</td>
+<td>NA</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>kube-proxy</td>
+<td>root</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>cilium</td>
+<td>root</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>calico</td>
+<td>root</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>flannel</td>
+<td>root</td>
+<td>true</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>priorityClassName</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kube-apiserver</td>
+<td>system-cluster-critical</td>
+</tr>
+<tr>
+<td>kube-controller-manager</td>
+<td>system-cluster-critical</td>
+</tr>
+<tr>
+<td>kube-scheduler</td>
+<td>system-cluster-critical</td>
+</tr>
+<tr>
+<td>coredns</td>
+<td>system-cluster-critical</td>
+</tr>
+<tr>
+<td>kube-proxy</td>
+<td>system-node-critical</td>
+</tr>
+<tr>
+<td>cilium</td>
+<td>system-node-critical</td>
+</tr>
+<tr>
+<td>calico</td>
+<td>system-node-critical</td>
+</tr>
+<tr>
+<td>flannel</td>
+<td>system-node-critical</td>
 </tr>
 </tbody>
 </table>
