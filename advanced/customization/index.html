@@ -935,15 +935,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fedora-coreos" class="md-nav__link">
-    Fedora CoreOS
+  <a href="#background" class="md-nav__link">
+    Background
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#flatcar-linux" class="md-nav__link">
-    Flatcar Linux
+  <a href="#usage" class="md-nav__link">
+    Usage
   </a>
   
 </li>
@@ -1163,15 +1163,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fedora-coreos" class="md-nav__link">
-    Fedora CoreOS
+  <a href="#background" class="md-nav__link">
+    Background
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#flatcar-linux" class="md-nav__link">
-    Flatcar Linux
+  <a href="#usage" class="md-nav__link">
+    Usage
   </a>
   
 </li>
@@ -1220,8 +1220,9 @@
 <h2 id="addons">Addons<a class="headerlink" href="#addons" title="Permanent link">&para;</a></h2>
 <p>Clusters are kept to a minimal Kubernetes control plane by offering components like Nginx Ingress Controller, Prometheus, and Grafana as optional post-install <a href="https://github.com/poseidon/typhoon/tree/master/addons">addons</a>. Customize addons by modifying a copy of our addon manifests.</p>
 <h2 id="hosts">Hosts<a class="headerlink" href="#hosts" title="Permanent link">&para;</a></h2>
-<p>Typhoon uses the <a href="https://github.com/coreos/ignition">Ignition</a> system of Fedora CoreOS and Flatcar Linux to immutably declare a system via first-boot disk provisioning. Fedora CoreOS uses a <a href="https://coreos.github.io/butane/specs/">Butane Config</a> and Flatcar Linux uses a <a href="https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/examples.md">Container Linux Config</a> (CLC). These define disk partitions, filesystems, systemd units, dropins, config files, mount units, raid arrays, and users.</p>
-<p>Controller and worker instances form a minimal and secure Kubernetes cluster on each platform. Typhoon provides the <strong>snippets</strong> feature to accept Butane or Container Linux Configs to validate and additively merge into instance declarations. This allows advanced host customization and experimentation.</p>
+<h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h3>
+<p>Typhoon uses the <a href="https://github.com/coreos/ignition">Ignition</a> system of Fedora CoreOS and Flatcar Linux to immutably declare a system via first-boot disk provisioning. Human-friendly <a href="https://coreos.github.io/butane/specs/">Butane Configs</a> define disk partitions, filesystems, systemd units, dropins, config files, mount units, raid arrays, users, and more before being converted to Ignition.</p>
+<p>Controller and worker instances form a minimal and secure Kubernetes cluster on each platform. Typhoon provides the <strong>snippets</strong> feature to accept custom Butane Configs that are merged with instance declarations. This allows advanced host customization and experimentation.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Snippets cannot be used to modify an already existing instance, the antithesis of immutable provisioning. Ignition fully declares a system on first boot only.</p>
@@ -1234,14 +1235,13 @@
 <p class="admonition-title">Danger</p>
 <p>Edits to snippets for controller instances can (correctly) cause Terraform to observe a diff (if not otherwise suppressed) and propose destroying and recreating controller(s). Recognize that this is destructive since controllers run etcd and are stateful. See <a href="/topics/maintenance/#upgrades">blue/green</a> clusters.</p>
 </div>
-<h3 id="fedora-coreos">Fedora CoreOS<a class="headerlink" href="#fedora-coreos" title="Permanent link">&para;</a></h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Fedora CoreOS snippets require <code>terraform-provider-ct</code> v0.5+</p>
-</div>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <p>Define a Butane Config (<a href="https://coreos.github.io/butane/specs/">docs</a>, <a href="https://github.com/coreos/butane/blob/main/docs/config-fcos-v1_4.md">config</a>) in version control near your Terraform workspace directory (e.g. perhaps in a <code>snippets</code> subdirectory). You may organize snippets into multiple files, if desired.</p>
-<p>For example, ensure an <code>/opt/hello</code> file is created with permissions 0644.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># custom-files</span><span class="w"></span>
+<p>For example, ensure an <code>/opt/hello</code> file is created with permissions 0644 before boot.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Fedora CoreOS</label><label for="__tabbed_1_2">Flatcar Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># custom-files.yaml</span><span class="w"></span>
 <span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fcos</span><span class="w"></span>
 <span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.4.0</span><span class="w"></span>
 <span class="nt">storage</span><span class="p">:</span><span class="w"></span>
@@ -1252,55 +1252,33 @@
 <span class="w">          </span><span class="no">Hello World</span><span class="w"></span>
 <span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0644</span><span class="w"></span>
 </code></pre></div>
-<p>Reference the FCC contents by location (e.g. <code>file("./custom-units.yaml")</code>). On <a href="/fedora-coreos/aws/#cluster">AWS</a> or <a href="/fedora-coreos/google-cloud/#cluster">Google Cloud</a> extend the <code>controller_snippets</code> or <code>worker_snippets</code> list variables.</p>
-<div class="highlight"><pre><span></span><code><span class="kr">module</span><span class="w"> </span><span class="nv">&quot;nemo&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="p">...</span><span class="w"></span>
-
-<span class="w">  </span><span class="na">controller_count</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w"></span>
-<span class="w">  </span><span class="na">worker_count</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="w"></span>
-<span class="w">  </span><span class="na">controller_snippets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">    </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./custom-files&quot;</span><span class="p">),</span><span class="w"></span>
-<span class="w">    </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./custom-units&quot;</span><span class="p">),</span><span class="w"></span>
-<span class="w">  </span><span class="p">]</span><span class="w"></span>
-<span class="w">  </span><span class="na">worker_snippets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">    </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./custom-files&quot;</span><span class="p">),</span><span class="w"></span>
-<span class="w">    </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./custom-units&quot;)&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="p">]</span><span class="w"></span>
-<span class="w">  </span><span class="p">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-<p>On <a href="/fedora-coreos/bare-metal/#cluster">Bare-Metal</a>, different FCCs may be used for each node (since hardware may be heterogeneous). Extend the <code>snippets</code> map variable by mapping a controller or worker name key to a list of snippets.</p>
-<div class="highlight"><pre><span></span><code><span class="kr">module</span><span class="w"> </span><span class="nv">&quot;mercury&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="p">...</span><span class="w"></span>
-<span class="w">  </span><span class="nb">snippets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;node2&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./units/hello.yaml&quot;</span><span class="p">)]</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;node3&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./units/world.yaml&quot;</span><span class="p">),</span><span class="w"></span>
-<span class="w">      </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./units/hello.yaml&quot;</span><span class="p">),</span><span class="w"></span>
-<span class="w">    </span><span class="p">]</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-<h3 id="flatcar-linux">Flatcar Linux<a class="headerlink" href="#flatcar-linux" title="Permanent link">&para;</a></h3>
-<p>Define a Container Linux Config (CLC) (<a href="https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/configuration.md">config</a>, <a href="https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/examples.md">examples</a>) in version control near your Terraform workspace directory (e.g. perhaps in a <code>snippets</code> subdirectory). You may organize snippets into multiple files, if desired.</p>
-<p>For example, ensure an <code>/opt/hello</code> file is created with permissions 0644.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># custom-files</span><span class="w"></span>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># custom-files.yaml</span><span class="w"></span>
+<span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">flatcar</span><span class="w"></span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span><span class="w"></span>
 <span class="nt">storage</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">files</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/hello</span><span class="w"></span>
-<span class="w">      </span><span class="nt">filesystem</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span><span class="w"></span>
 <span class="w">      </span><span class="nt">contents</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">inline</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
 <span class="w">          </span><span class="no">Hello World</span><span class="w"></span>
 <span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0644</span><span class="w"></span>
 </code></pre></div>
-<p>Or ensure a systemd unit <code>hello.service</code> is created and a dropin <code>50-etcd-cluster.conf</code> is added for <code>etcd-member.service</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># custom-units</span><span class="w"></span>
+</div>
+</div>
+</div>
+<p>Or ensure a systemd unit <code>hello.service</code> is created.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Fedora CoreOS</label><label for="__tabbed_2_2">Flatcar Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># custom-units.yaml</span><span class="w"></span>
+<span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fcos</span><span class="w"></span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.4.0</span><span class="w"></span>
 <span class="nt">systemd</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">units</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hello.service</span><span class="w"></span>
-<span class="w">      </span><span class="nt">enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 <span class="w">      </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
 <span class="w">        </span><span class="no">[Unit]</span><span class="w"></span>
 <span class="w">        </span><span class="no">Description=Hello World</span><span class="w"></span>
@@ -1309,31 +1287,44 @@
 <span class="w">        </span><span class="no">ExecStart=/usr/bin/echo Hello World!</span><span class="w"></span>
 <span class="w">        </span><span class="no">[Install]</span><span class="w"></span>
 <span class="w">        </span><span class="no">WantedBy=multi-user.target</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">etcd-member.service</span><span class="w"></span>
-<span class="w">      </span><span class="nt">enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">      </span><span class="nt">dropins</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50-etcd-cluster.conf</span><span class="w"></span>
-<span class="w">          </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">            </span><span class="no">Environment=&quot;ETCD_LOG_PACKAGE_LEVELS=etcdserver=WARNING,security=DEBUG&quot;</span><span class="w"></span>
 </code></pre></div>
-<p>Reference the CLC contents by location (e.g. <code>file("./custom-units.yaml")</code>). On <a href="/flatcar-linux/aws/#cluster">AWS</a>, <a href="/flatcar-linux/azure/#cluster">Azure</a>, <a href="/flatcar-linux/digital-ocean/#cluster">DigitalOcean</a>, or <a href="/flatcar-linux/google-cloud/#cluster">Google Cloud</a> extend the <code>controller_snippets</code> or <code>worker_snippets</code> list variables.</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># custom-units.yaml</span><span class="w"></span>
+<span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">flatcar</span><span class="w"></span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span><span class="w"></span>
+<span class="nt">systemd</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">units</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hello.service</span><span class="w"></span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">      </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">        </span><span class="no">[Unit]</span><span class="w"></span>
+<span class="w">        </span><span class="no">Description=Hello World</span><span class="w"></span>
+<span class="w">        </span><span class="no">[Service]</span><span class="w"></span>
+<span class="w">        </span><span class="no">Type=oneshot</span><span class="w"></span>
+<span class="w">        </span><span class="no">ExecStart=/usr/bin/echo Hello World!</span><span class="w"></span>
+<span class="w">        </span><span class="no">[Install]</span><span class="w"></span>
+<span class="w">        </span><span class="no">WantedBy=multi-user.target</span><span class="w"></span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Reference the Butane contents by location (e.g. <code>file("./custom-units.yaml")</code>). On <a href="/fedora-coreos/aws/#cluster">AWS</a>, <a href="/fedora-coreos/azure/#cluster">Azure</a>, <a href="/fedora-coreos/digital-ocean/#cluster">DigitalOcean</a>, or <a href="/fedora-coreos/google-cloud/#cluster">Google Cloud</a> extend the <code>controller_snippets</code> or <code>worker_snippets</code> list variables.</p>
 <div class="highlight"><pre><span></span><code><span class="kr">module</span><span class="w"> </span><span class="nv">&quot;nemo&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="p">...</span><span class="w"></span>
-
-<span class="w">  </span><span class="na">controller_count</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w"></span>
 <span class="w">  </span><span class="na">worker_count</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="w"></span>
 <span class="w">  </span><span class="na">controller_snippets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">    </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./custom-files&quot;</span><span class="p">),</span><span class="w"></span>
-<span class="w">    </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./custom-units&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./custom-files.yaml&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./custom-units.yaml&quot;</span><span class="p">),</span><span class="w"></span>
 <span class="w">  </span><span class="p">]</span><span class="w"></span>
 <span class="w">  </span><span class="na">worker_snippets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">    </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./custom-files&quot;</span><span class="p">),</span><span class="w"></span>
-<span class="w">    </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./custom-units&quot;)&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./custom-files.yaml&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="nf">file</span><span class="p">(</span><span class="s2">&quot;./custom-units.yaml&quot;)&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">  </span><span class="p">]</span><span class="w"></span>
 <span class="w">  </span><span class="p">...</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
-<p>On <a href="/flatcar-linux/bare-metal/#cluster">Bare-Metal</a>, different CLCs may be used for each node (since hardware may be heterogeneous). Extend the <code>snippets</code> map variable by mapping a controller or worker name key to a list of snippets.</p>
+<p>On <a href="/fedora-coreos/bare-metal/#cluster">Bare-Metal</a>, different Butane configs may be used for each node (since hardware may be heterogeneous). Extend the <code>snippets</code> map variable by mapping a controller or worker name key to a list of snippets.</p>
 <div class="highlight"><pre><span></span><code><span class="kr">module</span><span class="w"> </span><span class="nv">&quot;mercury&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="p">...</span><span class="w"></span>
 <span class="w">  </span><span class="nb">snippets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1357,7 +1348,7 @@
 <h2 id="system-images">System Images<a class="headerlink" href="#system-images" title="Permanent link">&para;</a></h2>
 <p>Typhoon publishes Kubelet <a href="/topics/security/#container-images">container images</a> to Quay.io (default) and to Dockerhub (in case of a Quay <a href="https://github.com/poseidon/typhoon/issues/735">outage</a> or breach). Quay automated builds also provide the option for fully verifiable tagged images (<code>build-{short_sha}</code>).</p>
 <p>To set an alternative etcd image or Kubelet image, use a snippet to set a systemd dropin.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Kubelet</label><label for="__tabbed_1_2">etcd</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Kubelet</label><label for="__tabbed_3_2">etcd</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="c1"># kubelet-image-override.yaml</span><span class="w"></span>

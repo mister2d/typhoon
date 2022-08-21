@@ -795,11 +795,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#upgrades" class="md-nav__link">
-    Upgrades
+  <a href="#terraform-versions" class="md-nav__link">
+    Terraform Versions
   </a>
   
-    <nav class="md-nav" aria-label="Upgrades">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cluster-upgrades" class="md-nav__link">
+    Cluster Upgrades
+  </a>
+  
+    <nav class="md-nav" aria-label="Cluster Upgrades">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -843,16 +850,48 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#upgrade-terraform-provider-ct" class="md-nav__link">
-    Upgrade terraform-provider-ct
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#node-configuration-updates" class="md-nav__link">
+    Node Configuration Updates
   </a>
   
-    <nav class="md-nav" aria-label="Upgrade terraform-provider-ct">
+    <nav class="md-nav" aria-label="Node Configuration Updates">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#aws" class="md-nav__link">
+    AWS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-cloud" class="md-nav__link">
+    Google Cloud
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade-poseidonct" class="md-nav__link">
+    Upgrade poseidon/ct
+  </a>
+  
+    <nav class="md-nav" aria-label="Upgrade poseidon/ct">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws_1" class="md-nav__link">
     AWS
   </a>
   
@@ -880,7 +919,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#google-cloud" class="md-nav__link">
+  <a href="#google-cloud_1" class="md-nav__link">
     Google Cloud
   </a>
   
@@ -888,18 +927,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#terraform-versions" class="md-nav__link">
-    Terraform Versions
-  </a>
   
 </li>
       
@@ -1223,11 +1250,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#upgrades" class="md-nav__link">
-    Upgrades
+  <a href="#terraform-versions" class="md-nav__link">
+    Terraform Versions
   </a>
   
-    <nav class="md-nav" aria-label="Upgrades">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cluster-upgrades" class="md-nav__link">
+    Cluster Upgrades
+  </a>
+  
+    <nav class="md-nav" aria-label="Cluster Upgrades">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1271,16 +1305,48 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#upgrade-terraform-provider-ct" class="md-nav__link">
-    Upgrade terraform-provider-ct
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#node-configuration-updates" class="md-nav__link">
+    Node Configuration Updates
   </a>
   
-    <nav class="md-nav" aria-label="Upgrade terraform-provider-ct">
+    <nav class="md-nav" aria-label="Node Configuration Updates">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#aws" class="md-nav__link">
+    AWS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-cloud" class="md-nav__link">
+    Google Cloud
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade-poseidonct" class="md-nav__link">
+    Upgrade poseidon/ct
+  </a>
+  
+    <nav class="md-nav" aria-label="Upgrade poseidon/ct">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws_1" class="md-nav__link">
     AWS
   </a>
   
@@ -1308,7 +1374,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#google-cloud" class="md-nav__link">
+  <a href="#google-cloud_1" class="md-nav__link">
     Google Cloud
   </a>
   
@@ -1316,18 +1382,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#terraform-versions" class="md-nav__link">
-    Terraform Versions
-  </a>
   
 </li>
       
@@ -1360,17 +1414,69 @@
 <h2 id="versioning">Versioning<a class="headerlink" href="#versioning" title="Permanent link">&para;</a></h2>
 <p>Typhoon provides tagged releases to allow clusters to be versioned using ordinary Terraform configs.</p>
 <div class="highlight"><pre><span></span><code>module &quot;yavin&quot; {
-  source = &quot;git::https://github.com/poseidon/typhoon//google-cloud/fedora-coreos/kubernetes?ref=v1.24.3&quot;
+  source = &quot;git::https://github.com/poseidon/typhoon//google-cloud/fedora-coreos/kubernetes?ref=v1.24.4&quot;
   ...
 }
 
 module &quot;mercury&quot; {
-  source = &quot;git::https://github.com/poseidon/typhoon//bare-metal/flatcar-linux/kubernetes?ref=v1.24.3&quot;
+  source = &quot;git::https://github.com/poseidon/typhoon//bare-metal/flatcar-linux/kubernetes?ref=v1.24.4&quot;
   ...
 }
 </code></pre></div>
-<p>Master is updated regularly, so it is recommended to <a href="https://www.terraform.io/docs/modules/sources.html">pin</a> modules to a <a href="https://github.com/poseidon/typhoon/releases">release tag</a> or <a href="https://github.com/poseidon/typhoon/commits/master">commit</a> hash. Pinning ensures <code>terraform get --update</code> only fetches the desired version.</p>
-<h2 id="upgrades">Upgrades<a class="headerlink" href="#upgrades" title="Permanent link">&para;</a></h2>
+<p>Main is updated regularly, so it is recommended to <a href="https://www.terraform.io/docs/modules/sources.html">pin</a> modules to a <a href="https://github.com/poseidon/typhoon/releases">release tag</a> or <a href="https://github.com/poseidon/typhoon/commits/main">commit</a> hash. Pinning ensures <code>terraform get --update</code> only fetches the desired version.</p>
+<h2 id="terraform-versions">Terraform Versions<a class="headerlink" href="#terraform-versions" title="Permanent link">&para;</a></h2>
+<p>Typhoon modules support Terraform v0.13.x and higher. Poseidon publishes <a href="/topics/security/#terraform-providers">providers</a> to the Terraform Provider Registry for automatic install via <code>terraform init</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Typhoon Release</th>
+<th>Terraform version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1.21.2 - ?</td>
+<td>v0.13.x, v0.14.4+, v0.15.x, v1.0.x</td>
+</tr>
+<tr>
+<td>v1.21.1 - v1.21.1</td>
+<td>v0.13.x, v0.14.4+, v0.15.x</td>
+</tr>
+<tr>
+<td>v1.20.2 - v1.21.0</td>
+<td>v0.13.x, v0.14.4+</td>
+</tr>
+<tr>
+<td>v1.20.0 - v1.20.2</td>
+<td>v0.13.x</td>
+</tr>
+<tr>
+<td>v1.18.8 - v1.19.4</td>
+<td>v0.12.26+, v0.13.x</td>
+</tr>
+<tr>
+<td>v1.15.0 - v1.18.8</td>
+<td>v0.12.x</td>
+</tr>
+<tr>
+<td>v1.10.3 - v1.15.0</td>
+<td>v0.11.x</td>
+</tr>
+<tr>
+<td>v1.9.2 - v1.10.2</td>
+<td>v0.10.4+ or v0.11.x</td>
+</tr>
+<tr>
+<td>v1.7.3 - v1.9.1</td>
+<td>v0.10.x</td>
+</tr>
+<tr>
+<td>v1.6.4 - v1.7.2</td>
+<td>v0.9.x</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cluster-upgrades">Cluster Upgrades<a class="headerlink" href="#cluster-upgrades" title="Permanent link">&para;</a></h2>
 <p>Typhoon recommends upgrading clusters using a blue-green replacement strategy and migrating workloads.</p>
 <ol>
 <li>Launch new (candidate) clusters from tagged releases</li>
@@ -1442,8 +1548,86 @@ Apply complete! Resources: 0 added, 0 changed, 55 destroyed.
 <p class="admonition-title">Warning</p>
 <p>Typhoon does not support or document node replacement as an upgrade strategy. It limits Typhoon's ability to make infrastructure and architectural changes between tagged releases.</p>
 </div>
-<h3 id="upgrade-terraform-provider-ct">Upgrade terraform-provider-ct<a class="headerlink" href="#upgrade-terraform-provider-ct" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://github.com/poseidon/terraform-provider-ct">terraform-provider-ct</a> plugin parses, validates, and converts Fedora CoreOS or Flatcar Linux Configs into Ignition user-data for provisioning instances. Since Typhoon v1.12.2+, the plugin can be updated in-place so that on apply, only workers will be replaced.</p>
+<h2 id="node-configuration-updates">Node Configuration Updates<a class="headerlink" href="#node-configuration-updates" title="Permanent link">&para;</a></h2>
+<p>Typhoon worker instance groups (default workers and <a href="../../advanced/worker-pools/">worker pools</a>) on AWS and Google Cloud gradually rolling replace worker instances when configuration changes are applied.</p>
+<h3 id="aws">AWS<a class="headerlink" href="#aws" title="Permanent link">&para;</a></h3>
+<p>On AWS, worker instances belong to an auto-scaling group. When an auto-scaling group's launch configuration changes, an AWS <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-instance-refresh.html">Instance Refresh</a> gradually replaces worker instances.</p>
+<p>Instance refresh creates surge instances, waits for a warm-up period, then deletes old instances.</p>
+<div class="highlight"><pre><span></span><code><span class="w">module &quot;tempest&quot; {</span>
+<span class="w"> </span> source = &quot;git::https://github.com/poseidon/typhoon//aws/VARIANT/kubernetes?ref=VERSION&quot;<span class="w"></span>
+
+<span class="w"> </span> # AWS<span class="w"></span>
+<span class="w"> </span> cluster_name = &quot;tempest&quot;<span class="w"></span>
+<span class="w"> </span> ...<span class="w"></span>
+
+<span class="w"> </span> # optional<span class="w"></span>
+<span class="w"> </span> worker_count = 2<span class="w"></span>
+<span class="gd">- worker_type  = &quot;t3.small&quot;</span><span class="w"></span>
+<span class="gi">+ worker_type  = &quot;t3a.small&quot;</span><span class="w"></span>
+
+<span class="w"> </span> # change from on-demand to spot<span class="w"></span>
+<span class="gi">+ worker_price = &quot;0.0309&quot;</span><span class="w"></span>
+
+<span class="w"> </span> # default is 30GB<span class="w"></span>
+<span class="gi">+ disk_size = 50</span><span class="w"></span>
+
+<span class="w"> </span> # change worker snippets<span class="w"></span>
+<span class="gi">+ worker_snippets = [</span><span class="w"></span>
+<span class="gi">+   file(&quot;butane/feature.yaml&quot;),</span><span class="w"></span>
+<span class="gi">+ ]</span><span class="w"></span>
+<span class="w">}</span>
+</code></pre></div>
+<p>Applying edits to most worker fields will start an instance refresh:</p>
+<ul>
+<li><code>worker_type</code></li>
+<li><code>disk_*</code></li>
+<li><code>worker_price</code> (i.e. spot)</li>
+<li><code>worker_target_groups</code></li>
+<li><code>worker_snippets</code></li>
+</ul>
+<p>However, changing <code>os_stream</code>/<code>os_channel</code> or new AMIs becoming available will NOT change the launch configuration or trigger an Instance Refresh. This allows Fedora CoreOS or Flatcar Linux to auto-update themselves via reboots and avoids unexpected terraform diffs for new AMIs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before Typhoon v1.24.4, worker nodes only used new launch configurations when replaced manually (or due to failure). If you must change node configuration manually, it's still possible. Create a new <a href="../../advanced/worker-pools/">worker pool</a>, then scale down the old worker pool as desired.</p>
+</div>
+<h3 id="google-cloud">Google Cloud<a class="headerlink" href="#google-cloud" title="Permanent link">&para;</a></h3>
+<p>On Google Cloud, worker instances belong to a <a href="https://cloud.google.com/compute/docs/instance-groups#managed_instance_groups">managed instance group</a>. When a group's launch template changes, a <a href="https://cloud.google.com/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups">rolling update</a> gradually replaces worker instances.</p>
+<p>The rolling update creates surge instances, waits for instances to be healthy, then deletes old instances.</p>
+<div class="highlight"><pre><span></span><code><span class="w">module &quot;yavin&quot; {</span>
+<span class="w"> </span> source = &quot;git::https://github.com/poseidon/typhoon//google-cloud/VARIANT/kubernetes?ref=VERSION&quot;<span class="w"></span>
+
+<span class="w"> </span> # Google Cloud<span class="w"></span>
+<span class="w"> </span> cluster_name  = &quot;yavin&quot;<span class="w"></span>
+<span class="w"> </span> ...<span class="w"></span>
+
+<span class="w"> </span> # optional<span class="w"></span>
+<span class="w"> </span> worker_count = 2<span class="w"></span>
+<span class="gi">+ worker_type = &quot;n2-standard-2&quot;</span><span class="w"></span>
+<span class="gi">+ worker_preemptible = true</span><span class="w"></span>
+
+<span class="w"> </span> # default is 30GB<span class="w"></span>
+<span class="gi">+ disk_size = 50</span><span class="w"></span>
+
+<span class="w"> </span> # change worker snippets<span class="w"></span>
+<span class="gi">+ worker_snippets = [</span><span class="w"></span>
+<span class="gi">+   file(&quot;butane/feature.yaml&quot;),</span><span class="w"></span>
+<span class="gi">+ ]</span><span class="w"></span>
+<span class="w">}</span>
+</code></pre></div>
+<p>Applying edits to most worker fields will start an instance refresh:</p>
+<ul>
+<li><code>worker_type</code></li>
+<li><code>disk_*</code></li>
+<li><code>worker_preemptible</code> (i.e. spot)</li>
+<li><code>worker_snippets</code></li>
+</ul>
+<p>However, changing <code>os_stream</code>/<code>os_channel</code> or new compute images becoming available will NOT change the launch template or update instances. This allows Fedora CoreOS or Flatcar Linux to auto-update themselves via reboots and avoids unexpected terraform diffs for new AMIs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before Typhoon v1.24.4, worker nodes only used new launch templates when replaced manually (or due to failure). If you must change node configuration manually, it's still possible. Create a new <a href="../../advanced/worker-pools/">worker pool</a>, then scale down the old worker pool as desired.</p>
+</div>
+<h2 id="upgrade-poseidonct">Upgrade poseidon/ct<a class="headerlink" href="#upgrade-poseidonct" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://github.com/poseidon/terraform-provider-ct">poseidon/ct</a> Terraform provider plugin parses, validates, and converts Butane Configs to Ignition user-data for provisioning instances. Since Typhoon v1.12.2+, the plugin can be updated in-place so that on apply, only workers will be replaced.</p>
 <p>Update the version of the <code>ct</code> plugin in each Terraform working directory. Typhoon clusters managed in the working directory <strong>must</strong> be v1.12.2 or higher.</p>
 <div class="highlight"><pre><span></span><code><span class="w">provider &quot;ct&quot; {}</span>
 
@@ -1451,8 +1635,8 @@ Apply complete! Resources: 0 added, 0 changed, 55 destroyed.
 <span class="w"> </span> required_providers {<span class="w"></span>
 <span class="w"> </span>   ct = {<span class="w"></span>
 <span class="w"> </span>     source  = &quot;poseidon/ct&quot;<span class="w"></span>
-<span class="gd">-     version = &quot;0.8.0&quot;</span><span class="w"></span>
-<span class="gi">+     version = &quot;0.9.0&quot;</span><span class="w"></span>
+<span class="gd">-     version = &quot;0.10.0&quot;</span><span class="w"></span>
+<span class="gi">+     version = &quot;0.11.0&quot;</span><span class="w"></span>
 <span class="w"> </span>   }<span class="w"></span>
 <span class="w"> </span>   ...<span class="w"></span>
 <span class="w"> </span> }<span class="w"></span>
@@ -1462,9 +1646,9 @@ Apply complete! Resources: 0 added, 0 changed, 55 destroyed.
 <div class="highlight"><pre><span></span><code>terraform init
 terraform plan
 </code></pre></div>
-<p>Apply the change. Worker nodes' user-data will be changed and workers will be replaced. Rollout happens slightly differently on each platform:</p>
-<h4 id="aws">AWS<a class="headerlink" href="#aws" title="Permanent link">&para;</a></h4>
-<p>AWS creates a new worker ASG, then removes the old ASG. New workers join the cluster and old workers disappear. <code>terraform apply</code> will hang during this process.</p>
+<p>Apply the change. If worker nodes' user-data is changed and workers will be replaced. Rollout happens slightly differently on each platform:</p>
+<h4 id="aws_1">AWS<a class="headerlink" href="#aws_1" title="Permanent link">&para;</a></h4>
+<p>See AWS node <a href="#aws">config updates</a>.</p>
 <h4 id="azure">Azure<a class="headerlink" href="#azure" title="Permanent link">&para;</a></h4>
 <p>Azure edits the worker scale set in-place instantly. Manually terminate workers to create replacement workers using the new user-data.</p>
 <h4 id="bare-metal_1">Bare-Metal<a class="headerlink" href="#bare-metal_1" title="Permanent link">&para;</a></h4>
@@ -1480,61 +1664,8 @@ terraform taint module.nemo.null_resource.copy-worker-secrets[N]
 terraform apply
 </code></pre></div>
 <p>Expect downtime.</p>
-<h4 id="google-cloud">Google Cloud<a class="headerlink" href="#google-cloud" title="Permanent link">&para;</a></h4>
-<p>Google Cloud creates a new worker template and edits the worker instance group instantly. Manually terminate workers and replacement workers will use the user-data.</p>
-<h2 id="terraform-versions">Terraform Versions<a class="headerlink" href="#terraform-versions" title="Permanent link">&para;</a></h2>
-<p>Terraform <a href="https://www.hashicorp.com/blog/announcing-hashicorp-terraform-0-13">v0.13</a> introduced major changes to the provider plugin system. Terraform <code>init</code> can automatically install both <code>hashicorp</code> and <code>poseidon</code> provider plugins, eliminating the need to manually install plugin binaries.</p>
-<p>Typhoon modules have been updated for v0.13.x. Poseidon publishes <a href="/topics/security/#terraform-providers">providers</a> to the Terraform Provider Registry for usage with v0.13+.</p>
-<table>
-<thead>
-<tr>
-<th>Typhoon Release</th>
-<th>Terraform version</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>v1.21.2 - ?</td>
-<td>v0.13.x, v0.14.4+, v0.15.x, v1.0.x</td>
-</tr>
-<tr>
-<td>v1.21.1 - v1.21.1</td>
-<td>v0.13.x, v0.14.4+, v0.15.x</td>
-</tr>
-<tr>
-<td>v1.20.2 - v1.21.0</td>
-<td>v0.13.x, v0.14.4+</td>
-</tr>
-<tr>
-<td>v1.20.0 - v1.20.2</td>
-<td>v0.13.x</td>
-</tr>
-<tr>
-<td>v1.18.8 - v1.19.4</td>
-<td>v0.12.26+, v0.13.x</td>
-</tr>
-<tr>
-<td>v1.15.0 - v1.18.8</td>
-<td>v0.12.x</td>
-</tr>
-<tr>
-<td>v1.10.3 - v1.15.0</td>
-<td>v0.11.x</td>
-</tr>
-<tr>
-<td>v1.9.2 - v1.10.2</td>
-<td>v0.10.4+ or v0.11.x</td>
-</tr>
-<tr>
-<td>v1.7.3 - v1.9.1</td>
-<td>v0.10.x</td>
-</tr>
-<tr>
-<td>v1.6.4 - v1.7.2</td>
-<td>v0.9.x</td>
-</tr>
-</tbody>
-</table>
+<h4 id="google-cloud_1">Google Cloud<a class="headerlink" href="#google-cloud_1" title="Permanent link">&para;</a></h4>
+<p>See Google Cloud node <a href="#google-cloud">config updates</a>.</p>
 
               
             </article>

@@ -1336,7 +1336,7 @@
 
 
 <h1 id="azure">Azure<a class="headerlink" href="#azure" title="Permanent link">&para;</a></h1>
-<p>In this tutorial, we'll create a Kubernetes v1.24.3 cluster on Azure with Flatcar Linux.</p>
+<p>In this tutorial, we'll create a Kubernetes v1.24.4 cluster on Azure with Flatcar Linux.</p>
 <p>We'll declare a Kubernetes cluster using the Typhoon Terraform module. Then apply the changes to create a resource group, virtual network, subnets, security groups, controller availability set, worker scale set, load balancer, and TLS assets.</p>
 <p>Controller hosts are provisioned to run an <code>etcd-member</code> peer and a <code>kubelet</code> service. Worker hosts run a <code>kubelet</code> service. Controller nodes run <code>kube-apiserver</code>, <code>kube-scheduler</code>, <code>kube-controller-manager</code>, and <code>coredns</code>, while <code>kube-proxy</code> and <code>calico</code> (or <code>flannel</code>) run on every node. A generated <code>kubeconfig</code> provides <code>kubectl</code> access to the cluster.</p>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
@@ -1368,11 +1368,11 @@ Terraform v1.0.0
 <span class="w">  </span><span class="nb">required_providers</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nb">ct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">      </span><span class="na">source</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;poseidon/ct&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0.10.0&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0.11.0&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="nb">azurerm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">      </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;hashicorp/azurerm&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;3.14.0&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;3.18.0&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">  </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1386,7 +1386,7 @@ az vm image terms accept --publish kinvolk --offer flatcar-container-linux-free 
 <h2 id="cluster">Cluster<a class="headerlink" href="#cluster" title="Permanent link">&para;</a></h2>
 <p>Define a Kubernetes cluster using the module <code>azure/flatcar-linux/kubernetes</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="kr">module</span><span class="w"> </span><span class="nv">&quot;ramius&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//azure/flatcar-linux/kubernetes?ref=v1.24.3&quot;</span><span class="c1"></span>
+<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//azure/flatcar-linux/kubernetes?ref=v1.24.4&quot;</span><span class="c1"></span>
 
 <span class="c1">  # Azure</span>
 <span class="w">  </span><span class="na">cluster_name</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ramius&quot;</span><span class="w"></span>
@@ -1437,9 +1437,9 @@ Apply complete! Resources: <span class="m">69</span> added, <span class="m">0</s
 <div class="highlight"><pre><span></span><code>$ export KUBECONFIG=/home/user/.kube/configs/ramius-config
 $ kubectl get nodes
 NAME                  STATUS  ROLES   AGE  VERSION
-ramius-controller-0   Ready   &lt;none&gt;  24m  v1.24.3
-ramius-worker-000001  Ready   &lt;none&gt;  25m  v1.24.3
-ramius-worker-000002  Ready   &lt;none&gt;  24m  v1.24.3
+ramius-controller-0   Ready   &lt;none&gt;  24m  v1.24.4
+ramius-worker-000001  Ready   &lt;none&gt;  25m  v1.24.4
+ramius-worker-000002  Ready   &lt;none&gt;  24m  v1.24.4
 </code></pre></div>
 <p>List the pods.</p>
 <div class="highlight"><pre><span></span><code>$ kubectl get pods --all-namespaces

@@ -1336,7 +1336,7 @@
 
 
 <h1 id="digitalocean">DigitalOcean<a class="headerlink" href="#digitalocean" title="Permanent link">&para;</a></h1>
-<p>In this tutorial, we'll create a Kubernetes v1.24.3 cluster on DigitalOcean with Flatcar Linux.</p>
+<p>In this tutorial, we'll create a Kubernetes v1.24.4 cluster on DigitalOcean with Flatcar Linux.</p>
 <p>We'll declare a Kubernetes cluster using the Typhoon Terraform module. Then apply the changes to create controller droplets, worker droplets, DNS records, tags, and TLS assets.</p>
 <p>Controller hosts are provisioned to run an <code>etcd-member</code> peer and a <code>kubelet</code> service. Worker hosts run a <code>kubelet</code> service. Controller nodes run <code>kube-apiserver</code>, <code>kube-scheduler</code>, <code>kube-controller-manager</code>, and <code>coredns</code>, while <code>kube-proxy</code> and <code>calico</code> (or <code>flannel</code>) run on every node. A generated <code>kubeconfig</code> provides <code>kubectl</code> access to the cluster.</p>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
@@ -1370,27 +1370,27 @@ Terraform v1.0.0
 <span class="w">  </span><span class="nb">required_providers</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nb">ct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">      </span><span class="na">source</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;poseidon/ct&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0.10.0&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0.11.0&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="nb">digitalocean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">      </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;digitalocean/digitalocean&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;2.21.0&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;2.22.1&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">  </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="flatcar-linux-images">Flatcar Linux Images<a class="headerlink" href="#flatcar-linux-images" title="Permanent link">&para;</a></h3>
-<p>Flatcar Linux publishes DigitalOcean images, but does not yet upload them. DigitalOcean allows <a href="https://blog.digitalocean.com/custom-images/">custom images</a> to be uploaded via URLor file.</p>
-<p><a href="https://www.flatcar-linux.org/releases/">Download</a> the Flatcar Linux DigitalOcean bin image. Rename the image with the channel and version (to refer to these images over time) and <a href="https://cloud.digitalocean.com/images/custom_images">upload</a> it as a custom image.</p>
-<div class="highlight"><pre><span></span><code><span class="kr">data</span><span class="w"> </span><span class="nc">&quot;digitalocean_image&quot;</span><span class="w"> </span><span class="nv">&quot;flatcar-stable-2303-4-0&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;flatcar-stable-2303.4.0.bin.bz2&quot;</span><span class="w"></span>
+<p>Flatcar Linux publishes DigitalOcean images, but does not yet upload them. DigitalOcean allows <a href="https://blog.digitalocean.com/custom-images/">custom images</a> to be uploaded via a URL or file.</p>
+<p>Choose a Flatcar Linux <a href="https://www.flatcar-linux.org/releases/">release</a> from Flatcar's file <a href="https://stable.release.flatcar-linux.net/amd64-usr/">server</a>. Copy the URL to the <code>flatcar_production_digitalocean_image.bin.bz2</code>, import it into DigitalOcean, and name it as a custom image. Add a data reference to the image in Terraform:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">data</span><span class="w"> </span><span class="nc">&quot;digitalocean_image&quot;</span><span class="w"> </span><span class="nv">&quot;flatcar-stable-3227-2-0&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;flatcar-stable-3227.2.0.bin.bz2&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>Set the <a href="#variables">os_image</a> in the next step.</p>
 <h2 id="cluster">Cluster<a class="headerlink" href="#cluster" title="Permanent link">&para;</a></h2>
 <p>Define a Kubernetes cluster using the module <code>digital-ocean/flatcar-linux/kubernetes</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="kr">module</span><span class="w"> </span><span class="nv">&quot;nemo&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//digital-ocean/flatcar-linux/kubernetes?ref=v1.24.3&quot;</span><span class="c1"></span>
+<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//digital-ocean/flatcar-linux/kubernetes?ref=v1.24.4&quot;</span><span class="c1"></span>
 
 <span class="c1">  # Digital Ocean</span>
 <span class="w">  </span><span class="na">cluster_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;nemo&quot;</span><span class="w"></span>
@@ -1441,9 +1441,9 @@ Apply complete! Resources: <span class="m">42</span> added, <span class="m">0</s
 <div class="highlight"><pre><span></span><code>$ export KUBECONFIG=/home/user/.kube/configs/nemo-config
 $ kubectl get nodes
 NAME               STATUS  ROLES   AGE  VERSION
-10.132.110.130     Ready   &lt;none&gt;  10m  v1.24.3
-10.132.115.81      Ready   &lt;none&gt;  10m  v1.24.3
-10.132.124.107     Ready   &lt;none&gt;  10m  v1.24.3
+10.132.110.130     Ready   &lt;none&gt;  10m  v1.24.4
+10.132.115.81      Ready   &lt;none&gt;  10m  v1.24.4
+10.132.124.107     Ready   &lt;none&gt;  10m  v1.24.4
 </code></pre></div>
 <p>List the pods.</p>
 <div class="highlight"><pre><span></span><code>NAMESPACE     NAME                                       READY     STATUS    RESTARTS   AGE

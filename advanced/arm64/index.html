@@ -1143,7 +1143,7 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kr">module</span><span class="w"> </span><span class="nv">&quot;gravitas&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//aws/fedora-coreos/kubernetes?ref=v1.24.3&quot;</span><span class="c1"></span>
+<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//aws/fedora-coreos/kubernetes?ref=v1.24.4&quot;</span><span class="c1"></span>
 
 <span class="c1">  # AWS</span>
 <span class="w">  </span><span class="na">cluster_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gravitas&quot;</span><span class="w"></span>
@@ -1166,7 +1166,7 @@
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kr">module</span><span class="w"> </span><span class="nv">&quot;gravitas&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//aws/flatcar-linux/kubernetes?ref=v1.24.3&quot;</span><span class="c1"></span>
+<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//aws/flatcar-linux/kubernetes?ref=v1.24.4&quot;</span><span class="c1"></span>
 
 <span class="c1">  # AWS</span>
 <span class="w">  </span><span class="na">cluster_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gravitas&quot;</span><span class="w"></span>
@@ -1192,9 +1192,9 @@
 <p>Verify the cluster has only arm64 (<code>aarch64</code>) nodes. For Flatcar Linux, describe nodes.</p>
 <div class="highlight"><pre><span></span><code>$ kubectl get nodes -o wide
 NAME             STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                        KERNEL-VERSION            CONTAINER-RUNTIME
-ip-10-0-21-119   Ready    &lt;none&gt;   77s   v1.24.3   10.0.21.119   &lt;none&gt;        Fedora CoreOS 35.20211215.3.0   5.15.7-200.fc35.aarch64   containerd://1.5.8
-ip-10-0-32-166   Ready    &lt;none&gt;   80s   v1.24.3   10.0.32.166   &lt;none&gt;        Fedora CoreOS 35.20211215.3.0   5.15.7-200.fc35.aarch64   containerd://1.5.8
-ip-10-0-5-79     Ready    &lt;none&gt;   77s   v1.24.3   10.0.5.79     &lt;none&gt;        Fedora CoreOS 35.20211215.3.0   5.15.7-200.fc35.aarch64   containerd://1.5.8
+ip-10-0-21-119   Ready    &lt;none&gt;   77s   v1.24.4   10.0.21.119   &lt;none&gt;        Fedora CoreOS 35.20211215.3.0   5.15.7-200.fc35.aarch64   containerd://1.5.8
+ip-10-0-32-166   Ready    &lt;none&gt;   80s   v1.24.4   10.0.32.166   &lt;none&gt;        Fedora CoreOS 35.20211215.3.0   5.15.7-200.fc35.aarch64   containerd://1.5.8
+ip-10-0-5-79     Ready    &lt;none&gt;   77s   v1.24.4   10.0.5.79     &lt;none&gt;        Fedora CoreOS 35.20211215.3.0   5.15.7-200.fc35.aarch64   containerd://1.5.8
 </code></pre></div>
 <h2 id="hybrid">Hybrid<a class="headerlink" href="#hybrid" title="Permanent link">&para;</a></h2>
 <p>Create a hybrid/mixed arch cluster by defining an AWS cluster. Then define a <a href="../worker-pools/#aws">worker pool</a> with ARM64 workers. Optional taints are added to aid in scheduling.</p>
@@ -1202,7 +1202,7 @@ ip-10-0-5-79     Ready    &lt;none&gt;   77s   v1.24.3   10.0.5.79     &lt;none&
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kr">module</span><span class="w"> </span><span class="nv">&quot;gravitas&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//aws/fedora-coreos/kubernetes?ref=v1.24.3&quot;</span><span class="c1"></span>
+<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//aws/fedora-coreos/kubernetes?ref=v1.24.4&quot;</span><span class="c1"></span>
 
 <span class="c1">  # AWS</span>
 <span class="w">  </span><span class="na">cluster_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gravitas&quot;</span><span class="w"></span>
@@ -1223,7 +1223,7 @@ ip-10-0-5-79     Ready    &lt;none&gt;   77s   v1.24.3   10.0.5.79     &lt;none&
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kr">module</span><span class="w"> </span><span class="nv">&quot;gravitas&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//aws/flatcar-linux/kubernetes?ref=v1.24.3&quot;</span><span class="c1"></span>
+<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//aws/flatcar-linux/kubernetes?ref=v1.24.4&quot;</span><span class="c1"></span>
 
 <span class="c1">  # AWS</span>
 <span class="w">  </span><span class="na">cluster_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gravitas&quot;</span><span class="w"></span>
@@ -1244,7 +1244,7 @@ ip-10-0-5-79     Ready    &lt;none&gt;   77s   v1.24.3   10.0.5.79     &lt;none&
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kr">module</span><span class="w"> </span><span class="nv">&quot;gravitas-arm64&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//aws/fedora-coreos/kubernetes/workers?ref=v1.24.3&quot;</span><span class="c1"></span>
+<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//aws/fedora-coreos/kubernetes/workers?ref=v1.24.4&quot;</span><span class="c1"></span>
 
 <span class="c1">  # AWS</span>
 <span class="w">  </span><span class="na">vpc_id</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nv">module.gravitas.vpc_id</span><span class="w"></span>
@@ -1266,7 +1266,7 @@ ip-10-0-5-79     Ready    &lt;none&gt;   77s   v1.24.3   10.0.5.79     &lt;none&
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kr">module</span><span class="w"> </span><span class="nv">&quot;gravitas-arm64&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//aws/flatcar-linux/kubernetes/workers?ref=v1.24.3&quot;</span><span class="c1"></span>
+<span class="w">  </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;git::https://github.com/poseidon/typhoon//aws/flatcar-linux/kubernetes/workers?ref=v1.24.4&quot;</span><span class="c1"></span>
 
 <span class="c1">  # AWS</span>
 <span class="w">  </span><span class="na">vpc_id</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nv">module.gravitas.vpc_id</span><span class="w"></span>
@@ -1291,10 +1291,10 @@ ip-10-0-5-79     Ready    &lt;none&gt;   77s   v1.24.3   10.0.5.79     &lt;none&
 <p>Verify amd64 (x86_64) and arm64 (aarch64) nodes are present.</p>
 <div class="highlight"><pre><span></span><code>$ kubectl get nodes -o wide
 NAME                       STATUS   ROLES    AGE    VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                                             KERNEL-VERSION            CONTAINER-RUNTIME
-ip-10-0-1-73               Ready    &lt;none&gt;   111m   v1.24.3   10.0.1.73     &lt;none&gt;        Fedora CoreOS 35.20211215.3.0                        5.15.7-200.fc35.x86_64    containerd://1.5.8
-ip-10-0-22-79...           Ready    &lt;none&gt;   111m   v1.24.3   10.0.22.79    &lt;none&gt;        Flatcar Container Linux by Kinvolk 3033.2.0 (Oklo)   5.10.84-flatcar           containerd://1.5.8
-ip-10-0-24-130             Ready    &lt;none&gt;   111m   v1.24.3   10.0.24.130   &lt;none&gt;        Fedora CoreOS 35.20211215.3.0                        5.15.7-200.fc35.x86_64    containerd://1.5.8
-ip-10-0-39-19              Ready    &lt;none&gt;   111m   v1.24.3   10.0.39.19    &lt;none&gt;        Fedora CoreOS 35.20211215.3.0                        5.15.7-200.fc35.x86_64    containerd://1.5.8
+ip-10-0-1-73               Ready    &lt;none&gt;   111m   v1.24.4   10.0.1.73     &lt;none&gt;        Fedora CoreOS 35.20211215.3.0                        5.15.7-200.fc35.x86_64    containerd://1.5.8
+ip-10-0-22-79...           Ready    &lt;none&gt;   111m   v1.24.4   10.0.22.79    &lt;none&gt;        Flatcar Container Linux by Kinvolk 3033.2.0 (Oklo)   5.10.84-flatcar           containerd://1.5.8
+ip-10-0-24-130             Ready    &lt;none&gt;   111m   v1.24.4   10.0.24.130   &lt;none&gt;        Fedora CoreOS 35.20211215.3.0                        5.15.7-200.fc35.x86_64    containerd://1.5.8
+ip-10-0-39-19              Ready    &lt;none&gt;   111m   v1.24.4   10.0.39.19    &lt;none&gt;        Fedora CoreOS 35.20211215.3.0                        5.15.7-200.fc35.x86_64    containerd://1.5.8
 </code></pre></div>
 
               
