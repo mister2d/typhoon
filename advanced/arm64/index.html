@@ -1137,10 +1137,6 @@
 
 <h1 id="arm64">ARM64<a class="headerlink" href="#arm64" title="Permanent link">&para;</a></h1>
 <p>Typhoon has experimental support for ARM64 on AWS, with Fedora CoreOS or Flatcar Linux. Clusters can be created with ARM64 controller and worker nodes. Or worker pools of ARM64 nodes can be attached to an AMD64 cluster to create a hybrid/mixed architecture cluster.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Currently, CNI networking must be set to <code>flannel</code> or <code>cilium</code>.</p>
-</div>
 <h2 id="cluster">Cluster<a class="headerlink" href="#cluster" title="Permanent link">&para;</a></h2>
 <p>Create a cluster with ARM64 controller and worker nodes. Container workloads must be <code>arm64</code> compatible and use <code>arm64</code> container images.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Fedora CoreOS Cluster (arm64)</label><label for="__tabbed_1_2">Flatcar Linux Cluster (arm64)</label></div>
