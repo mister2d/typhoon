@@ -1,12 +1,10 @@
 # Kubernetes assets (kubeconfig, manifests)
 module "bootstrap" {
-  source = "git::https://github.com/poseidon/terraform-render-bootstrap.git?ref=7a18a221bb0b04c01b0bed52f45b82c0ce5f42ab"
+  source = "git::https://github.com/mister2d/terraform-render-bootstrap.git?ref=no-cni"
 
   cluster_name                    = var.cluster_name
   api_servers                     = [var.k8s_domain_name]
   etcd_servers                    = var.controllers.*.domain
-  networking                      = var.networking
-  network_mtu                     = var.network_mtu
   network_ip_autodetection_method = var.network_ip_autodetection_method
   pod_cidr                        = var.pod_cidr
   service_cidr                    = var.service_cidr
